@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "5c90c782-3d4a-443e-b7dc-f71874b073ed",
+		"name": "posts-heroku",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "取得全部",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://stormy-springs-17148.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"stormy-springs-17148",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"name\": \"經濟雙人房\",\n   \"price\": 2000,\n   \"rating\": 5\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://stormy-springs-17148.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"stormy-springs-17148",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除所有",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://stormy-springs-17148.herokuapp.com/posts",
+					"protocol": "https",
+					"host": [
+						"stormy-springs-17148",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "刪除單筆",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://stormy-springs-17148.herokuapp.com/posts/",
+					"protocol": "https",
+					"host": [
+						"stormy-springs-17148",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "編輯單筆",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://stormy-springs-17148.herokuapp.com/posts/",
+					"protocol": "https",
+					"host": [
+						"stormy-springs-17148",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"posts",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
