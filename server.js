@@ -1,5 +1,6 @@
 const http = require('http');
 const Room = require('./models/room');
+const Posts = require('./models/posts');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
@@ -32,30 +33,39 @@ const requestListener = async (req, res) => {
 		'Content-Type': 'application/json'
 	};
 	if(req.url === '/posts' && req.method == 'GET'){
-		const rooms = await Room.find();
+		// const rooms = await Room.find();
+		const posts = await Posts.find();
 		res.writeHead(200, headers)
 		res.write(JSON.stringify({
 			'status': 'success',
-			rooms
+			posts
 		}))
 		res.end();
 	} else if(req.url ==='/posts' && req.method =='POST'){
 		req.on('end', async() => {
 			try {
 				const data = JSON.parse(body)
-				// 第二種寫法
-				const newRoom = await Room.create(
+				// const newRoom = await Room.create(
+				// 	{
+				// 		name: data.name,
+				// 		price: data.price,
+				// 		rating: data.rating
+				// 	}
+				// )
+				console.log(data)
+				const newPosts = await Posts.create(
 					{
-						name: data.name,
-						price: data.price,
-						rating: data.rating
+            name: data.name,
+            content: data.content,
+            tags: data.tags,
+            type: data.type
 					}
 				)
-				const rooms = await Room.find({})
+				// const posts = await Posts.find({})
 				res.writeHead(200,headers)
 				res.write(JSON.stringify({
 					'status': 'success',
-					rooms: rooms
+					'data': newPosts
 				}))
 				res.end();
 			}catch(error){
@@ -69,36 +79,35 @@ const requestListener = async (req, res) => {
 			}
 		})
 	} else if(req.url ==='/posts' && req.method =='DELETE'){
-		const rooms = await Room.deleteMany({})
+		// const rooms = await Room.deleteMany({})
+		const posts = await Posts.deleteMany({})
 		res.writeHead(200, headers)
 		res.write(JSON.stringify({
 			'status': '刪除成功',
-			rooms: []
+			// rooms: []
+			posts: []
 		}))
 		res.end();
 	} else if(req.url.startsWith('/posts/') && req.method =='DELETE'){
 		const id = req.url.split('/').pop();
-		// const index = rooms.findIndex(item => item.id == id)
-		await Room.findByIdAndDelete(id)
-		const rooms = await Room.find();
-		// rooms.splice(index, 1)
-		// console.log(index);
+		await Posts.findByIdAndDelete(id)
+		const posts = await Posts.find();
 		res.writeHead(200, headers)
 		res.write(JSON.stringify({
 			'status': '刪除單筆成功',
-			rooms: rooms
+			posts: posts
 		}))
 		res.end();
 	} else if(req.url.startsWith('/posts/') && req.method =='PATCH'){
 		const id = req.url.split('/').pop();
-		const findId = await Room.find({'_id': id})
+		const findId = await Posts.find({'_id': id})
 		const data = JSON.parse(body)
-		await Room.findByIdAndUpdate(findId, {"name": data.name})
-		const rooms = await Room.find({})
+		await Posts.findByIdAndUpdate(findId, {"name": data.name})
+		const posts = await Posts.find({})
 		res.writeHead(200, headers)
 		res.write(JSON.stringify({
 			'status': '編輯單筆成功',
-			rooms: rooms
+			posts: posts
 		}))
 		res.end();
 	} else if(req.url ==='/posts' && req.method =='OPTIONS'){
