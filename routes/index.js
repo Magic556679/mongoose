@@ -1,10 +1,10 @@
 const Posts = require('../models/posts');
-const headers = require('../headers');
-const handleSuccess = require('../handleSuccess');
-const handleError = require('../handleError');
+const handleSuccess = require('../service/handleSuccess');
+const handleError = require('../service/handleError');
+const httpControllers = require('../controllers/http')
 
 const routes = async (req, res) => {
-  	let body = "";
+  let body = "";
 	req.on('data', chunk => {
 		body += chunk
 	});
@@ -61,15 +61,9 @@ const routes = async (req, res) => {
 			}
 		});
 	} else if(req.url ==='/posts' && req.method =='OPTIONS'){
-		res.writeHead(200, headers)
-		res.end();
+		httpControllers.cors(req, res);
 	} else {
-		res.writeHead(404, headers)
-		res.write(JSON.stringify({
-			'status': 'false',
-			'message': '欄位輸入錯誤，或無此ID',
-		}))
-		res.end();
+		httpControllers.notFound(req, res);
 	}
 }
 
