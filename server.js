@@ -1,29 +1,10 @@
-const http = require('http');
 const Posts = require('./models/posts');
 const headers = require('./headers');
 const handleSuccess = require('./handleSuccess');
 const handleError = require('./handleError')
-const dotenv = require('dotenv');
-const mongoose = require('mongoose');
+require('./connections')
 
-dotenv.config({path:'./config.env'});
-console.log(process.env.PORT);
-
-const DB = process.env.DATABASE.replace(
-	'<password>',
-	process.env.DATABASE_PASSWORD
-)
-
-// mongoDB 雲端
-mongoose.connect(DB)
-	.then(()=>{
-		console.log('資料庫連線成功')
-	})
-	.catch((error)=>{
-		console.log(error);
-	});
-
-const requestListener = async (req, res) => {
+const app = async (req, res) => {
 	let body = "";
 	req.on('data', chunk => {
 		body += chunk
@@ -93,5 +74,4 @@ const requestListener = async (req, res) => {
 	}
 };
 
-const server = http.createServer(requestListener);
-server.listen(process.env.PORT);
+module.exports = app;
